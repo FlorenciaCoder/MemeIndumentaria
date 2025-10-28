@@ -1,23 +1,42 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MemeIndumentaria</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Meme Indumentaria - Simulador</title>
+    <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
-    <h1>Meme Indumentaria!</h1>
-    <h2>Tienda de articulos de indumentaria, inspiradas en mi gata Meme</h2>
-    <h3>Prendas Unicas De Estilo Alternativo</h3>
-    <p>
-        Este simulador permite al usuario seleccionar prendas de estilo alternativo y calcular el total de su compra. 
-    </p>
+    <header>
+        <h1>Meme Indumentaria</h1>
+        <div id="bienvenida">
+            <label for="nombreInput">Ingresa tu nombre:</label>
+            <input id="nombreInput" type="text" placeholder="Tu nombre">
+            <button id="guardarNombre">Guardar</button>
+            <p id="saludo"></p>
+        </div>
+    </header>
 
-    <!--enlace a js-->
+    <main>
+        <section id="productosSection">
+            <h2>Productos</h2>
+            <div id="productosList" class="grid"></div>
+        </section>
+
+        <aside id="carritoSection">
+            <h2>Carrito</h2>
+            <div id="carritoList"></div>
+            <div id="resumen">
+                <p id="totalGeneral">TOTAL: $0</p>
+                <button id="vaciarCarrito">Vaciar carrito</button>
+            </div>
+        </aside>
+    </main>
+
+    <footer>
+        <p>Entrega N°2 - Proyecto JS</p>
+    </footer>
+
     <script src="main.js"></script>
-
 </body>
-
 </html>
