@@ -1,38 +1,34 @@
-
 // Constantes y datos
 const IVA = 0.21;
 const STORAGE_KEY = "meme_carrito_v2";
 const NOMBRE_KEY = "meme_nombre";
-// Array Productos disponibles
-const productos = [
-  { id: 1, nombre: "Remera", imagen: "./img/remeraMeme.png", precio: 15000 },
-  { id: 2, nombre: "Pantalón", imagen:"./img/pantMeme.png", precio: 30000 },
-  { id: 3, nombre: "Campera", imagen: "./img/chacketMeme.png", precio: 45000 },
-  { id: 4, nombre: "Zapatillas", imagen: "./img/zapatillasMeme.png", precio: 60000 },
-  { id: 5, nombre: "Gorra", imagen: "./img/capMeme.png", precio: 12000 }
-];
-//cargar productos
+
 const contenedorProductos = document.getElementById("productosList");
+let productos = []; // se llenará con el JSON
 
+// cargar productos desde productos.json
 function cargarProductos() {
-  if (!contenedorProductos) return; // nothing to render on this page
-  productos.forEach(producto => {
-    const div = document.createElement("div");
-    div.classList.add("producto");
-    div.innerHTML = `
-      <img class="producto-imagen" src="${producto.imagen}" alt="${producto.nombre}">
-      <div class="producto-detalles">
-        <h3 class="producto-titulo">${producto.nombre}</h3>
-        <p class="producto-precio">$${producto.precio}</p>
-        <button class="producto-agregar" data-id="${producto.id}">Agregar al carrito</button>
-      </div>
-    `;
-    contenedorProductos.append(div);
-
-  });
+  if (!contenedorProductos) return; 
+  fetch("./productos.json")
+    .then(res => res.json())
+    .then(data => {
+      productos = data;
+      productos.forEach(producto => {
+        const div = document.createElement("div");
+        div.classList.add("producto");
+        div.innerHTML = `
+          <img class="producto-imagen" src="${producto.imagen}" alt="${producto.nombre}">
+          <div class="producto-detalles">
+            <h3 class="producto-titulo">${producto.nombre}</h3>
+            <p class="producto-precio">$${producto.precio}</p>
+            <button class="producto-agregar" data-id="${producto.id}">Agregar al carrito</button>
+          </div>
+        `;
+        contenedorProductos.append(div);
+      });
+    })
+    .catch(err => console.error("Error cargando productos:", err));
 }
-
-cargarProductos();
 
 // Lógica del carrito
 let carrito = [];
@@ -51,14 +47,13 @@ function calcularTotalConIVA(precio, cantidad) {
   return Math.round(subtotal * (1 + IVA));
 }
 
-// actualiza el contador visible en el header")
+// actualiza el contador visible en el header
 function updateHeaderCount() {
   try {
     const totalItems = carrito.reduce((acc, it) => acc + (it.cantidad || 0), 0);
     const els = document.querySelectorAll('.numerito');
     els.forEach(e => { e.textContent = totalItems; });
-  } catch (e) {
-  }
+  } catch (e) {}
 }
 
 function agregarAlCarrito(productId, cantidad = 1) {
@@ -85,12 +80,11 @@ function renderCarrito() {
   const totalEl = document.getElementById('totalGeneral');
   const vacioStatic = document.querySelector('.carrito-vacio');
   if (!list) return; // no está en esta página
-  // mostrar/ocultar el mensaje estático "Tu carrito esta vacio"
+
   if (vacioStatic) vacioStatic.style.display = (carrito && carrito.length > 0) ? 'none' : 'block';
 
   list.innerHTML = '';
   if (!carrito || carrito.length === 0) {
-    list.innerHTML = '';
     if (totalEl) totalEl.textContent = 'TOTAL: $0';
     return;
   }
@@ -118,7 +112,6 @@ function renderCarrito() {
     totalGeneral += item.total;
   });
 
-  // actualizar total
   const subEl = document.getElementById('subtotal');
   const ivaEl = document.getElementById('iva');
   if (subEl) subEl.textContent = `$${subtotalGeneral.toLocaleString('es-AR')}`;
@@ -129,14 +122,12 @@ function renderCarrito() {
 
 // listeners
 document.addEventListener('click', (e) => {
-  // agregar desde la lista de productos
   const addBtn = e.target.closest('.producto-agregar');
   if (addBtn) {
     const id = addBtn.dataset.id || addBtn.getAttribute('data-id');
     if (id) agregarAlCarrito(id, 1);
   }
 
-  // acciones dentro del carrito
   const borrar = e.target.closest('.carrito-borrar');
   if (borrar) {
     const id = Number(borrar.dataset.id);
@@ -162,9 +153,11 @@ if (vaciarBtn) vaciarBtn.addEventListener('click', () => { carrito = []; guardar
 
 // iniciar estado
 cargarStorage();
+cargarProductos(); 
 renderCarrito();
 updateHeaderCount();
-//nombre / saludo 
+
+// nombre / saludo 
 function initNombre() {
   try {
     const nombreInput = document.getElementById('nombreInput');
@@ -193,18 +186,17 @@ function initNombre() {
 }
 
 initNombre();
+
 // confirmar compra con SweetAlert
 document.addEventListener('click', (e) => {
   const comprarBtn = e.target.closest('.carrito-acciones-comprar');
   if (!comprarBtn) return;
 
-  //leer totales
   const sub = document.getElementById('subtotal')?.textContent || '$0';
   const iva = document.getElementById('iva')?.textContent || '$0';
   const total = document.getElementById('totalGeneral')?.textContent || '$0';
 
   if (typeof Swal === 'undefined') {
-    //sweetalert 
     if (confirm(`Confirmar compra\nSubtotal: ${sub}\nIVA: ${iva}\nTotal: ${total}`)) {
       carrito = []; guardarStorage(); renderCarrito(); updateHeaderCount();
       alert('Compra finalizada. Gracias!');
@@ -226,5 +218,3 @@ document.addEventListener('click', (e) => {
     }
   });
 });
-// --- fin carrito ------------------------------------------------------
-

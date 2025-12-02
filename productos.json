@@ -1,0 +1,7 @@
+[
+  { "id": 1, "nombre": "Remera", "imagen": "./img/remeraMeme.png", "precio": 15000 },
+  { "id": 2, "nombre": "Pantalón", "imagen": "./img/pantMeme.png", "precio": 30000 },
+  { "id": 3, "nombre": "Campera", "imagen": "./img/chacketMeme.png", "precio": 45000 },
+  { "id": 4, "nombre": "Zapatillas", "imagen": "./img/zapatillasMeme.png", "precio": 60000 },
+  { "id": 5, "nombre": "Gorra", "imagen": "./img/capMeme.png", "precio": 12000 }
+]
