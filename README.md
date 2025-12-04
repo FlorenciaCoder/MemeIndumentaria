@@ -1,4 +1,4 @@
-# Meme Indumentaria 👕😂
+# Meme Indumentaria 👕
 
 Proyecto final de JavaScript para Coderhouse.  
 Aplicación que simula una tienda online de indumentaria con temática de mi gata Meme.
