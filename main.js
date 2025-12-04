@@ -186,18 +186,18 @@ function initNombre() {
 }
 
 initNombre();
-
 // confirmar compra con SweetAlert
 document.addEventListener('click', (e) => {
   const comprarBtn = e.target.closest('.carrito-acciones-comprar');
   if (!comprarBtn) return;
 
-  const sub = document.getElementById('subtotal')?.textContent || '$0';
-  const iva = document.getElementById('iva')?.textContent || '$0';
-  const total = document.getElementById('totalGeneral')?.textContent || '$0';
+  //iva y subtotal
+  let subtotalGeneral = carrito.reduce((acc, item) => acc + (item.precio * item.cantidad), 0);
+  let iva = Math.round(subtotalGeneral * IVA);
+  let totalGeneral = subtotalGeneral + iva;
 
   if (typeof Swal === 'undefined') {
-    if (confirm(`Confirmar compra\nSubtotal: ${sub}\nIVA: ${iva}\nTotal: ${total}`)) {
+    if (confirm(`Confirmar compra\nSubtotal: $${subtotalGeneral}\nIVA: $${iva}\nTotal: $${totalGeneral}`)) {
       carrito = []; guardarStorage(); renderCarrito(); updateHeaderCount();
       alert('Compra finalizada. Gracias!');
     }
@@ -206,7 +206,11 @@ document.addEventListener('click', (e) => {
 
   Swal.fire({
     title: 'Finalizar compra',
-    html: `<p>Subtotal: <strong>${sub}</strong></p><p>IVA (21%): <strong>${iva}</strong></p><p>Total: <strong>${total}</strong></p>`,
+    html: `
+      <p>Subtotal: <strong>$${subtotalGeneral.toLocaleString('es-AR')}</strong></p>
+      <p>IVA (21%): <strong>$${iva.toLocaleString('es-AR')}</strong></p>
+      <p>Total: <strong>$${totalGeneral.toLocaleString('es-AR')}</strong></p>
+    `,
     icon: 'question',
     showCancelButton: true,
     confirmButtonText: 'Sí, confirmar',
