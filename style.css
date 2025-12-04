@@ -44,7 +44,7 @@ aside {
     position: sticky;
     top: 0;
     height: 100vh;
-    background: linear-gradient(180deg,#7a2a7a,#ffb3de);
+    background: linear-gradient(180deg,#d85ad8,#ffb3de);
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -66,7 +66,7 @@ nav ul { display:flex; gap: 0.6rem; align-items:center; }
 
 /* Main content */
 main { padding: 2rem; 
-background-color: white;
+ background: linear-gradient(180deg,#edc1ed,#ffb3de);
 margin: 1rem;
 border-radius: 2rem;
 margin-left: 0;

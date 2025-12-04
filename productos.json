@@ -1,3 +1,5 @@
+// productos.json
+
 [
   { "id": 1, "nombre": "Remera", "imagen": "./img/remeraMeme.png", "precio": 15000 },
   { "id": 2, "nombre": "Pantalón", "imagen": "./img/pantMeme.png", "precio": 30000 },

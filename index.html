@@ -11,34 +11,35 @@
 
 <body>
     <div class="wrapper">
-    <aside>
-        <header>
-            <h1 class="logo">Meme Indumentaria</h1>
-            <nav>
-            <div id="bienvenida">
-                <label for="nombreInput">Ingresa tu nombre:</label>
-                <input id="nombreInput" type="text" placeholder="Tu nombre">
-                <button id="guardarNombre">Guardar</button>
-                <p id="saludo"></p>
+        <aside>
+            <header>
+                <h1 class="logo">Meme Indumentaria</h1>
+                <nav>
+                    <div id="bienvenida">
+                        <label for="nombreInput">Ingresa tu nombre:</label>
+                        <input id="nombreInput" type="text" placeholder="Tu nombre">
+                        <button id="guardarNombre">Guardar</button>
+                        <p id="saludo"></p>
+                    </div>
+                    <ul>
+                        <li>
+                            <a class="boton-carrito" href="./carrito.html"><i class="bi bi-cart2"></i>Carrito <span
+                                    class="numerito">1</span></a>
+                        </li>
+                    </ul>
+                </nav>
+                <footer>
+                    <p class="texto-footer">© EntregaFinal-Proyecto JS</p>
+                </footer>
+            </header>
+        </aside>
+        <main>
+            <h2 class="titulo-principal active"> Nuestros Productos</h2>
+            <!-- Contenedor de productos -->
+            <div class="Productos" id="productosList">
+                <!-- Esto se va a completar con js-->
             </div>
-            <ul>
-              <li>
-                <a class="boton-carrito" href="./carrito.html"><i class="bi bi-cart2"></i>Carrito <span class="numerito">1</span></a>
-              </li>
-            </ul>
-            </nav>
-             <footer>
-        <p class="texto-footer">© EntregaFinal-Proyecto JS</p>
-    </footer>
-        </header>
-    </aside>
-    <main>
-        <h2 class="titulo-principal active"> Nuestros Productos</h2>
-        <!-- Contenedor de productos -->
-        <div class="Productos" id="productosList">
-            <!-- Esto se va a completar con js-->
-            </div>
-        </div>
+    </div>
     </main>
 
     </div>
@@ -49,9 +50,7 @@
         <button id="vaciarCarrito"></button>
         <p id="totalGeneral"></p>
     </div>
-
-   
-
+    <!-- main js -->
     <script src="main.js"></script>
 </body>
 
